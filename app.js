@@ -13,9 +13,19 @@ let windSpeed;
 let resultDiv;
 let calcButton;
 let resetButton;
-let inputWeightRef;
-let tempArrey;
 
+let inputWeightRef;
+let inputTempRef;
+let pressureRef;
+let fieldElevationRef;
+let runwayHeadingRef;
+let windDegreesRef;
+let windSpeedRef;
+let flapRef = false;
+let ecsRef = false;
+
+let tempArrey;
+let headwind, crosswind;//crosswind not used currently due to no need, here for future reference
 let tempV1;
 
 function init () {
@@ -27,16 +37,17 @@ function init () {
    tempV1 = document.getElementById("v1");
    
    inputWeightRef = document.getElementById("grossWeight");
+   inputTempRef = document.getElementById("grossWeight");
+   pressureRef = document.getElementById("grossWeight");
+   fieldElevationRef = document.getElementById("grossWeight");
+   runwayHeadingRef = document.getElementById("grossWeight");
+   windHeadingRef = document.getElementById("grossWeight");
+   windSpeedRef = document.getElementById("grossWeight");
+   flapRef = document.getElementById("grossWeight");//if button 15 chosen set true otherwise false.
+   ecsRef = document.getElementById("grossWeight");//if on button set true otherwise false
    
    
    
-   inputWeight = $("#grossWeight").val();
-   inputTemp = $("#temperature").val();
-   pressure = $("#pressure").val();
-   fieldElevation = $("#fieldElevation").val();
-   windDegrees = $("#windDegrees").val();
-   windSpeed = $("#windSpeed").val();
-   $('input:radio[name=ecs]:checked').val();
    flaps = $('input:radio[name=flaps]')[0].checked = true;
    flaps = $('input:radio[name=flaps]')[1].checked = true;
    ecs = $('input:radio[name=ecs]')[0].checked = true;
@@ -48,8 +59,26 @@ window.addEventListener('load', init);
 function calc () {
     resultDiv.style.display="inline";
     inputWeight = inputWeightRef.value;
-    getSpeeds(calculatedPA, inputWeight, inputTemp, set1);
+    inputTemp = inputTempRef.value;
+    pressure = pressureRef.value;
+    fieldElevation = fieldElevationRef.value;
+    runwayHeading = runwayHeadingRef.value;
+    windHeading = windHeadingRef.value;
+    windSpeed = windSpeedRef.value;
+
+    //find the right array values
+    calculatedPA= paCalc(pressure, fieldElevation);
+    getSpeeds(calculatedPA, inputWeight, inputTemp, set3);
     tempArrey = crossCheck(pressureAltitudeArr, weightArr);
+    let [v1, vr, v2, vClean, vFlap] = [tempArrey[0], tempArrey[1], tempArrey[2], tempArrey[3], tempArrey[4]];//values extracted
+
+    //manipulate the extracted values
+    headwind = wincCompCalc(runwayHeading, windHeading, windSpeed);
+    let arrCorr = speedsCorrected(v1, vr, v2, headwind); //returns new v1 and vr values
+    v1 = arrCorr[0];
+    vr = arrCorr[1];
+
+    //display values
 }
 
 function reset () {
@@ -410,9 +439,6 @@ function getSpeeds(pa, weight, temp, setArr){
             break;//end default case
     }
 }
-inputTemp= 20;
-inputWeight=21000;
-calculatedPA=2000;
 
 
 function crossCheck(pressureAltitudeArr, weightArr) {
@@ -459,19 +485,20 @@ function paCalc(pressure, fieldElevation){
     pa = Math.round(pa*1000)/1000;
     return pa;
 }
-
-let [v1, vr, v2, vClean, vFlap] = [tempArrey[0], tempArrey[1], tempArrey[2], tempArrey[3], tempArrey[4]];//values extracted
-
-let headwind, crosswind;
-let windComponents = windCalc(18, 200, 120);
-if (windComponents[1] > 0){
-    headwind = windComponents[1];
+function windCompCalc(runwayHeading, windHeading, windSpeed){
+    runwayHeading = runwayHeading/10;
+    let windComponents = windCalc(runwayHeading, windHeading, windSpeed);
+    if (windComponents[1] > 0){
+        headwind = windComponents[1];
+    }
+    else{
+        headwind = 0;//this is due to us only wanting to use headwind, we do not take tailwind into consideration as per aircraft documentation
+    }
+    return headwind;
 }
-else{
-    headwind = 0;//this is due to us only wanting to use headwind, we do not take tailwind into consideration as per aircraft documentation
-}
 
-//as long as v1 < vr && vr < v2 add 1 knot airspeed to the resulting speeds per 15kts headwind, if its above set the superior number speeds to the variable.
+function speedsCorrected(v1, vr, v2, headwind){
+    //as long as v1 < vr && vr < v2 add 1 knot airspeed to the resulting speeds per 15kts headwind, if its above set the superior number speeds to the variable.
 if(headwind >= 15){
     v1 += Math.floor(headwind/15);
     vr += Math.floor(headwind/15);
@@ -481,7 +508,5 @@ if(headwind >= 15){
     if (v1>vr){
         v1 = vr;
     }
+} return [v1, vr];
 }
-console.log('Pressure altitude is: ' + paCalc(29.45, 5000));
-console.log('New speed for v1: ' + v1);
-console.log('New speed for vR: ' + vr);
