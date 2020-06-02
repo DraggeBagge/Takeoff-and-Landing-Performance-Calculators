@@ -21,70 +21,20 @@ let fieldElevationRef;
 let runwayHeadingRef;
 let windDegreesRef;
 let windSpeedRef;
-let flapRef = false;
-let ecsRef = false;
+let flapRef;
+let ecsRef;
 
 let tempArrey;
 let headwind, crosswind;//crosswind not used currently due to no need, here for future reference
-let tempV1;
+let dispV1;
+let dispVr;
+let dispV2;
+let dispVClean;
+let dispVFlaps;
+let dispPA;
 
-function init () {
-   resultDiv = document.getElementById("result");
-   calcButton = document.getElementById("calculate");
-   resetButton = document.getElementById("reset");
-   calcButton.addEventListener('click', calc);
-   resetButton.addEventListener('click', reset);
-   tempV1 = document.getElementById("v1");
-   
-   inputWeightRef = document.getElementById("grossWeight");
-   inputTempRef = document.getElementById("grossWeight");
-   pressureRef = document.getElementById("grossWeight");
-   fieldElevationRef = document.getElementById("grossWeight");
-   runwayHeadingRef = document.getElementById("grossWeight");
-   windHeadingRef = document.getElementById("grossWeight");
-   windSpeedRef = document.getElementById("grossWeight");
-   flapRef = document.getElementById("grossWeight");//if button 15 chosen set true otherwise false.
-   ecsRef = document.getElementById("grossWeight");//if on button set true otherwise false
-   
-   
-   
-   flaps = $('input:radio[name=flaps]')[0].checked = true;
-   flaps = $('input:radio[name=flaps]')[1].checked = true;
-   ecs = $('input:radio[name=ecs]')[0].checked = true;
-   ecs = $('input:radio[name=ecs]')[0].checked = true;
-}
-
-window.addEventListener('load', init);
-
-function calc () {
-    resultDiv.style.display="inline";
-    inputWeight = inputWeightRef.value;
-    inputTemp = inputTempRef.value;
-    pressure = pressureRef.value;
-    fieldElevation = fieldElevationRef.value;
-    runwayHeading = runwayHeadingRef.value;
-    windHeading = windHeadingRef.value;
-    windSpeed = windSpeedRef.value;
-
-    //find the right array values
-    calculatedPA= paCalc(pressure, fieldElevation);
-    getSpeeds(calculatedPA, inputWeight, inputTemp, set3);
-    tempArrey = crossCheck(pressureAltitudeArr, weightArr);
-    let [v1, vr, v2, vClean, vFlap] = [tempArrey[0], tempArrey[1], tempArrey[2], tempArrey[3], tempArrey[4]];//values extracted
-
-    //manipulate the extracted values
-    headwind = wincCompCalc(runwayHeading, windHeading, windSpeed);
-    let arrCorr = speedsCorrected(v1, vr, v2, headwind); //returns new v1 and vr values
-    v1 = arrCorr[0];
-    vr = arrCorr[1];
-
-    //display values
-}
-
-function reset () {
-    resultDiv.style.display="none";
-    inputWeightRef.value = null;
-}
+let pressureAltitudeArr= [];
+let weightArr= [];
 
 /*
 Declaration of all speed arrays 
@@ -305,8 +255,74 @@ here beginns the weight array*/[/*weight 19000*/[/*-40*/[/*v1*/,/*v2*/,/*v3*/],/
 
 ,/*weight 30000*/[/*-40*/[114,114,115],/*-30*/[114,114,115], /*-20*/[114,114,115],/*-10*/[114,115,115],/*0*/[115,115,115],/*10*/[115,115,115],/*20*/[115,115,115],/*30*/[115,115,115],/*40*/[115,115,115],/*50*/[115,115,115],129,132]]];
 
-let pressureAltitudeArr= [];
-let weightArr= [];
+
+
+
+function init () {
+   resultDiv = document.getElementById("result");
+   calcButton = document.getElementById("calculate");
+   resetButton = document.getElementById("reset");
+   calcButton.addEventListener('click', calc);
+   resetButton.addEventListener('click', reset);
+   dispV1 = document.getElementById("v1");
+   dispVr = document.getElementById("vr");
+   dispV2 = document.getElementById("v2");
+   dispVClean = document.getElementById("vClean");
+   dispVFlaps = document.getElementById("vFlap");
+   dispPA = document.getElementById("presAlt");
+
+   inputWeightRef = document.getElementById("grossWeight");
+   inputTempRef = document.getElementById("temperature");
+   pressureRef = document.getElementById("pressure");
+   fieldElevationRef = document.getElementById("fieldElevation");
+   runwayHeadingRef = document.getElementById("rwHeading");
+   windHeadingRef = document.getElementById("windDegrees");
+   windSpeedRef = document.getElementById("windSpeed");
+   flapRef = document.getElementsByName("flaps");//if button 15 chosen set true otherwise false.
+   ecsRef = document.getElementsByName("ecs");//if on button set true otherwise false
+}
+
+window.addEventListener('load', init);
+
+function calc () {
+    resultDiv.style.display="inline";
+    inputWeight = inputWeightRef.value;
+    inputTemp = inputTempRef.value;
+    pressure = pressureRef.value;
+    fieldElevation = fieldElevationRef.value;
+    runwayHeading = runwayHeadingRef.value;
+    windHeading = windHeadingRef.value;
+    windSpeed = windSpeedRef.value;
+
+    console.log(flapRef[1].checked);
+    console.log(ecsRef[1].checked);
+
+    //find the right array values
+    calculatedPA= paCalc(pressure, fieldElevation);
+    getSpeeds(calculatedPA, inputWeight, inputTemp, set5);
+    tempArrey = crossCheck(pressureAltitudeArr, weightArr);
+    let [v1, vr, v2, vClean, vFlap] = [tempArrey[0], tempArrey[1], tempArrey[2], tempArrey[3], tempArrey[4]];//values extracted
+
+    //manipulate the extracted values
+    headwind = windCompCalc(runwayHeading, windHeading, windSpeed);
+    let arrCorr = speedsCorrected(v1, vr, v2, headwind); //returns new v1 and vr values
+    v1 = arrCorr[0];
+    vr = arrCorr[1];
+
+    //display values
+    dispV1.innerText = v1;
+    dispVr.innerText =  vr;
+    dispV2.innerText =  v2;
+    dispVClean.innerText = vClean; 
+    dispVFlaps.innerText =  vFlap;
+    dispPA.innerText =  calculatedPA;
+}
+
+function reset () {
+    resultDiv.style.display="none";
+    inputWeightRef.value = null;
+}
+
 function getSpeeds(pa, weight, temp, setArr){
     /*Get speed searches for the column based on temperature and alerts the v1 value, vspeed and vflap*/
     var roundPA=Math.round(pa/1000)*1000;//round the value to nearest thousend
