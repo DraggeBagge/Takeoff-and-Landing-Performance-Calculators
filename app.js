@@ -548,20 +548,21 @@ function slopeCorrection(v1, vr, v2,  runwaySlope){
             v1 = vr;
         }
     }
+    
     else if (runwaySlope <= -1){
         runwaySlope = Math.ceil(runwaySlope);
         v1 += 2.5 * runwaySlope;
         vr += 1.5 * runwaySlope;
-        console.log('v1 past: '+vrPast);
+        console.log('v1 past: '+v1Past);
         console.log('rotate past: '+vrPast);
         console.log('v1 after '+v1);
         console.log('Rotate after'+vr);
     }
         //making sure the value never drops below the minimum values.
-    if (v1Past >= v1){
+    if (v1Past > v1){
         v1 = v1Past;
     }
-    if (vrPast >= vr){
+    if (vrPast > vr){
         vr = vrPast;
     }
 
