@@ -24,6 +24,8 @@ let windDegreesRef;
 let windSpeedRef;
 let flapRef;
 let ecsRef;
+let aiRef;
+let wrongSetConfRef;
 
 let tempArrey;
 let headwind, crosswind;//crosswind not used currently due to no need, here for future reference
@@ -33,6 +35,8 @@ let dispV2;
 let dispVClean;
 let dispVFlaps;
 let dispPA;
+let settingsUsed;
+let dispWrongSetConf;
 
 let pressureAltitudeArr= [];
 let weightArr= [];
@@ -265,6 +269,7 @@ function init () {
    resetButton = document.getElementById("reset");
    calcButton.addEventListener('click', calc);
    resetButton.addEventListener('click', reset);
+   dispWrongSetConf = document.getElementById("badConf");
    dispV1 = document.getElementById("v1");
    dispVr = document.getElementById("vr");
    dispV2 = document.getElementById("v2");
@@ -282,6 +287,7 @@ function init () {
    windSpeedRef = document.getElementById("windSpeed");
    flapRef = document.getElementsByName("flaps");//if button 15 chosen set true otherwise false.
    ecsRef = document.getElementsByName("ecs");//if on button set true otherwise false
+   aiRef = document.getElementsByName("ai");
 }
 
 window.addEventListener('load', init);
@@ -299,10 +305,40 @@ function calc () {
 
     console.log(flapRef[1].checked);
     console.log(ecsRef[1].checked);
+    console.log(aiRef[1].checked);
 
+    //chose which set based on flap and ecs choices
+    if (flapRef[1].checked == false && ecsRef[1].checked == false && aiRef[1].checked == false){
+        settingsUsed = set1;
+        console.log("Set1 used");
+    }
+    else if (flapRef[1].checked == false && ecsRef[1].checked == false && aiRef[1].checked == true){
+        settingsUsed = set2;
+        console.log("Set2 used");
+    }
+    else if (flapRef[1].checked == false && ecsRef[1].checked == true && aiRef[1].checked == false){
+        settingsUsed = set3;
+        console.log("Set3 used");
+    }
+    else if (flapRef[1].checked == true && ecsRef[1].checked == false && aiRef[1].checked == false){
+        settingsUsed = set4;
+        console.log("Set4 used");
+    }
+    else if (flapRef[1].checked == true && ecsRef[1].checked == false && aiRef[1].checked == true){
+        settingsUsed = set5;
+        console.log("Set5 used");
+    }
+    else if (flapRef[1].checked == true && ecsRef[1].checked == true && aiRef[1].checked == false){
+        settingsUsed = set6;
+        console.log("Set6 used");
+    }
+    else{
+        dispWrongSetConf.innerText =  'The config setting of Flap/ECS/Anti-ice is wrongly set.';
+    }
+    
     //find the right array values
     calculatedPA= paCalc(pressure, fieldElevation);
-    getSpeeds(calculatedPA, inputWeight, inputTemp, set5);
+    getSpeeds(calculatedPA, inputWeight, inputTemp, settingsUsed);//last arg is what set (1-6) is being used
     tempArrey = crossCheck(pressureAltitudeArr, weightArr);
     let [v1, vr, v2, vClean, vFlap] = [tempArrey[0], tempArrey[1], tempArrey[2], tempArrey[3], tempArrey[4]];//values extracted
 
