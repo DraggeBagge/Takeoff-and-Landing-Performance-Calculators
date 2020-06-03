@@ -29,7 +29,7 @@
             <tr>
                 <td>Field elevation (MSL)</td>
                 <td>
-                    <input type="number" id="fieldElevation" placeholder="eg. 29.92">inHg</td>
+                    <input type="number" id="fieldElevation" placeholder="eg. 145">ft</td>
             </tr>
             <tr>
                 <td>Runway heading</td>
@@ -37,6 +37,12 @@
                     <input type="number" id="rwHeading" placeholder="eg. 140">Degrees</td>
             </tr>
             <tr>
+            <tr>
+                <td>Runway slope</td>
+                <td>
+                    <input type="number" id="rwSlope" placeholder="eg. 0.5">Percent</td>
+                </td>
+            </tr>
                 <td>Wind</td>
                 <td>
                     <input type="text" id="windDegrees" placeholder="eg. 360">Degrees</td>
@@ -57,12 +63,7 @@
                     <input type="radio" name="ecs" value="Off" checked>Off
                     <input type="radio" name="ecs" value="On">On
                 </td>
-                <tr>
-                    <td>Results:</td>
-                    <td>
-                        <p id="calcOutput"></p>
-                    </td>
-                </tr>
+            </tr>
         </table>
         <button id="calculate">Calculate</button>
         <button id="reset">Reset</button>

@@ -19,6 +19,7 @@ let inputTempRef;
 let pressureRef;
 let fieldElevationRef;
 let runwayHeadingRef;
+let runwaySlopeRef;
 let windDegreesRef;
 let windSpeedRef;
 let flapRef;
@@ -276,6 +277,7 @@ function init () {
    pressureRef = document.getElementById("pressure");
    fieldElevationRef = document.getElementById("fieldElevation");
    runwayHeadingRef = document.getElementById("rwHeading");
+   runwaySlopeRef = document.getElementById("rwSlope");
    windHeadingRef = document.getElementById("windDegrees");
    windSpeedRef = document.getElementById("windSpeed");
    flapRef = document.getElementsByName("flaps");//if button 15 chosen set true otherwise false.
@@ -291,6 +293,7 @@ function calc () {
     pressure = pressureRef.value;
     fieldElevation = fieldElevationRef.value;
     runwayHeading = runwayHeadingRef.value;
+    runwaySlope = runwaySlopeRef.value;
     windHeading = windHeadingRef.value;
     windSpeed = windSpeedRef.value;
 
@@ -305,9 +308,12 @@ function calc () {
 
     //manipulate the extracted values
     headwind = windCompCalc(runwayHeading, windHeading, windSpeed);
-    let arrCorr = speedsCorrected(v1, vr, v2, headwind); //returns new v1 and vr values
-    v1 = arrCorr[0];
-    vr = arrCorr[1];
+    let slopeCorr = slopeCorrection(v1, vr, v2, runwaySlope);//slope needs to be corrected first due to wind changes possibly affecting the v1 and vr minima
+    v1 = slopeCorr[0];
+    vr = slopeCorr[1];
+    let speedCorr = speedsCorrected(v1, vr, v2, headwind); //returns new v1 and vr values
+    v1 = speedCorr[0];
+    vr = speedCorr[1];
 
     //display values
     dispV1.innerText = v1;
@@ -524,5 +530,40 @@ if(headwind >= 15){
     if (v1>vr){
         v1 = vr;
     }
-} return [v1, vr];
+}
+return [v1, vr];
+}
+
+function slopeCorrection(v1, vr, v2,  runwaySlope){
+    let v1Past = v1;
+    let vrPast = vr;
+    if (runwaySlope >= 1){
+        runwaySlope = Math.floor(runwaySlope);
+        v1 += 2 * runwaySlope;
+        vr += 0.5 * runwaySlope;
+        if (vr>v2){
+            vr = v2;
+        }
+        if (v1>vr){
+            v1 = vr;
+        }
+    }
+    else if (runwaySlope <= -1){
+        runwaySlope = Math.ceil(runwaySlope);
+        v1 += 2.5 * runwaySlope;
+        vr += 1.5 * runwaySlope;
+        console.log('v1 past: '+vrPast);
+        console.log('rotate past: '+vrPast);
+        console.log('v1 after '+v1);
+        console.log('Rotate after'+vr);
+    }
+        //making sure the value never drops below the minimum values.
+    if (v1Past >= v1){
+        v1 = v1Past;
+    }
+    if (vrPast >= vr){
+        vr = vrPast;
+    }
+
+    return [v1, vr];
 }
