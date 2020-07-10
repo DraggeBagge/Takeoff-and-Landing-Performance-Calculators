@@ -26,6 +26,7 @@ let flapRef;
 let ecsRef;
 let aiRef;
 let wrongSetConfRef;
+let inputErrRef;
 
 let tempArrey;
 let headwind, crosswind;//crosswind not used currently due to no need, here for future reference
@@ -37,6 +38,7 @@ let dispVFlaps;
 let dispPA;
 let settingsUsed;
 let dispWrongSetConf;
+let dispInputErr;
 
 let pressureAltitudeArr= [];
 let weightArr= [];
@@ -269,6 +271,7 @@ function init () {
    resetButton = document.getElementById("reset");
    calcButton.addEventListener('click', calc);
    resetButton.addEventListener('click', reset);
+   dispInputErr = document.getElementById('badInput');
    dispWrongSetConf = document.getElementById("badConf");
    dispV1 = document.getElementById("v1");
    dispVr = document.getElementById("vr");
@@ -293,7 +296,10 @@ function init () {
 window.addEventListener('load', init);
 
 function calc () {
+
     resultDiv.style.display="inline";
+
+
     inputWeight = inputWeightRef.value;
     inputTemp = inputTempRef.value;
     pressure = pressureRef.value;
@@ -306,7 +312,8 @@ function calc () {
     console.log(flapRef[1].checked);
     console.log(ecsRef[1].checked);
     console.log(aiRef[1].checked);
-
+    
+    limits(inputWeight, inputTemp, pressure, fieldElevation, runwayHeading, runwaySlope, windHeading, windSpeed);
     //chose which set based on flap and ecs choices
     if (flapRef[1].checked == false && ecsRef[1].checked == false && aiRef[1].checked == false){
         settingsUsed = set1;
@@ -355,8 +362,14 @@ function calc () {
     dispV1.innerText = v1;
     dispVr.innerText =  vr;
     dispV2.innerText =  v2;
-    dispVClean.innerText = vClean; 
-    dispVFlaps.innerText =  vFlap;
+    dispVClean.innerText = vClean;
+
+    if (typeof vFlap == 'undefined'){
+        dispVFlaps.innerText = 'Flaps not used';
+    }
+    else{
+        dispVFlaps.innerText =  vFlap;
+    }
     dispPA.innerText =  calculatedPA;
 }
 
@@ -603,4 +616,36 @@ function slopeCorrection(v1, vr, v2,  runwaySlope){
     }
 
     return [v1, vr];
+}
+function limits(weight, temperature, pressure, elevation, runwayHeading, runwaySlope, windDegrees, windspeed){
+    let retString = null;
+    //the function checks the input ranges and returns ether error messages or the checked values
+    if (weight > 30000 || weight < 19000){
+        retString =+ 'Weight outside parametars. If weight below 19.000 lbs, set the value to 19.000 min |';
+    }
+    if (temperature > 50 || temperature < -40){
+        retString =+ '| Temperature out of range |';
+    }
+    if (pressure > 35.00|| pressure < 25.00){
+        retString =+ '| Pressure outside allowed parametars |';
+    }
+    if (elevation < -500){
+        retString =+ '| Airport elevation outside parametars |';
+    }
+    if (runwayHeading > 360 || runwayHeading < 1){
+        retString =+ '| Write runway heading between 1 and 360 degrees |';
+    }
+    if (runwaySlope > 5){
+        retString =+ '| I would seriously question departing/landing there mate. If you want to calculate some reference values use 4 degrees and below. |';
+    }
+    if (windDegrees > 340 || windDegrees < 1){
+        retString =+ '| Write wind between 1 and 360 degrees |';
+    }
+    if (windspeed > 50 || windspeed < 0){
+        retString =+ '| Windspeed out of range --> Do not fly';
+    }
+    
+    if(retString != null){
+        alert(retString);
+    }
 }
