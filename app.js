@@ -298,6 +298,8 @@ window.addEventListener('load', init);
 function calc () {
 
     resultDiv.style.display="inline";
+    resultDiv.style.backgroundColor = "blue";
+    resultDiv.style.margin = "0 auto";
 
 
     inputWeight = Math.ceil(inputWeightRef.value/1000)*1000;

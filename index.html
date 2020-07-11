@@ -2,14 +2,15 @@
 <html>
 
 <head>
-    <title>Page Title</title>
+    <title>Saab340a Performance Calculator</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 </head>
 
 <body>
-        <table width="350px" border="1px">
-            <tr>
-                <th colspan="2">SAAB340a Takeoff performance calculator</th>
+        <table id="centerTable">
+            <tr id="tableHeading">
+                <th colspan="3">SAAB340a Takeoff performance calculator</th>
             </tr>
             <tr>
                 <td>Takeoff weight</td>
@@ -72,8 +73,8 @@
                 </td>
             </tr>
         </table>
-        <button id="calculate">Calculate</button>
-        <button id="reset">Reset</button>
+        <div class="center"><button class="" id="calculate">Calculate</button>
+        <button class=""id="reset">Reset</button></div>
         <div id="result" style="display: none">
             <p id="badInput"></p>
             <p id="badConf"></p>
@@ -84,6 +85,8 @@
             <p>Vclean: </p><p id="vClean">vClean</p>
             <p>Vflap: </p><p id="vFlap"></p>
         </div>
+        <footer><p>DISCLAMER: This is a flightsimulation tool and as such should not to be used for real world navigation. 
+The author(s) will not be held responsible for any violations occured using this tool.</p><p>If you wish to contribute to the project, visit <a href="https://github.com/DraggeBagge/Saab340APerformanceCalculator" target="_blank">our Github page</a></p>.</footer>
     <script src="app.js"></script>
 </body>
 
