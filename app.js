@@ -300,8 +300,9 @@ function calc () {
     resultDiv.style.display="inline";
 
 
-    inputWeight = inputWeightRef.value;
-    inputTemp = inputTempRef.value;
+    inputWeight = Math.ceil(inputWeightRef.value/1000)*1000;
+    console.log('Rounded weight: '+ inputWeight);
+    inputTemp = Math.round(inputTempRef.value/10)*10;
     pressure = pressureRef.value;
     fieldElevation = fieldElevationRef.value;
     runwayHeading = runwayHeadingRef.value;
@@ -618,34 +619,34 @@ function slopeCorrection(v1, vr, v2,  runwaySlope){
     return [v1, vr];
 }
 function limits(weight, temperature, pressure, elevation, runwayHeading, runwaySlope, windDegrees, windspeed){
-    let retString = null;
+    let retString = '';
     //the function checks the input ranges and returns ether error messages or the checked values
     if (weight > 30000 || weight < 19000){
-        retString =+ 'Weight outside parametars. If weight below 19.000 lbs, set the value to 19.000 min |';
+        retString += 'Weight Error: Weight outside parametars. If weight below 19.000 lbs, set the value to 19.000 min |';
     }
     if (temperature > 50 || temperature < -40){
-        retString =+ '| Temperature out of range |';
+        retString += '| Temperature Error: Temperature out of range, takeoff not possible |';
     }
     if (pressure > 35.00|| pressure < 25.00){
-        retString =+ '| Pressure outside allowed parametars |';
+        retString += '| Airfield Pressure error: Pressure outside allowed parametars |';
     }
-    if (elevation < -500){
-        retString =+ '| Airport elevation outside parametars |';
+    if (elevation < -100){
+        retString += '| Elevation error: Airport elevation outside parametars |';
     }
     if (runwayHeading > 360 || runwayHeading < 1){
-        retString =+ '| Write runway heading between 1 and 360 degrees |';
+        retString += '| Heading Error: Write runway heading between 1 and 360 degrees |';
     }
     if (runwaySlope > 5){
-        retString =+ '| I would seriously question departing/landing there mate. If you want to calculate some reference values use 4 degrees and below. |';
+        retString += '| Slope error: I would seriously question departing/landing there mate. If you want to calculate some reference values use 5 degrees and below. |';
     }
-    if (windDegrees > 340 || windDegrees < 1){
-        retString =+ '| Write wind between 1 and 360 degrees |';
+    if (windDegrees > 360 || windDegrees < 1){
+        retString += '| Wind Degree Error: Write wind between 1 and 360 degrees |';
     }
     if (windspeed > 50 || windspeed < 0){
-        retString =+ '| Windspeed out of range --> Do not fly';
+        retString += '| Windspeed Error: Windspeed out of range --> Do not fly';
     }
     
-    if(retString != null){
+    if(retString != ''){
         alert(retString);
     }
 }
