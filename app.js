@@ -379,6 +379,12 @@ function calc () {
 function reset () {
     resultDiv.style.display="none";
     inputWeightRef.value = null;
+    inputTempRef.value=null;
+    fieldElevationRef.value = null;
+    runwayHeadingRef.value = null;
+    runwaySlopeRef.value = null;
+    windHeadingRef.value = null;
+    windSpeedRef.value = null;
 }
 
 function getSpeeds(pa, weight, temp, setArr){
