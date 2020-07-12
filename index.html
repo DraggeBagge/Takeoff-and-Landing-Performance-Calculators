@@ -76,18 +76,51 @@
         </table>
         <div class="center"><button class="" id="calculate">Calculate</button>
         <button class=""id="reset">Reset</button></div>
-        <div id="result" style="display: none">
+        <!--
+        Use this section if the table does not work out    
+            <div id="result" style="display: none">
             <p id="badInput"></p>
             <p id="badConf"></p>
-            <p>Pressure altitude is: </p><p id="presAlt">presAlt</p>
-            <p>V1 value: </p><p id="v1">v1</p>
-            <p>Vr: </p><p id="vr">vr</p>
-            <p>V2: </p><p id="v2">v2</p>
-            <p>Vclean: </p><p id="vClean">vClean</p>
+            <p>Pressure altitude is: </p><p id="presAlt">Not calculated</p>
+            <p>V1 value: </p><p id="v1">Not calculated</p>
+            <p>Vr: </p><p id="vr">Not calculated</p>
+            <p>V2: </p><p id="v2">Not calculated</p>
+            <p>Vclean: </p><p id="vClean">Not calculated</p>
             <p>Vflap: </p><p id="vFlap"></p>
         </div>
-        <footer><p>DISCLAMER: This is a flightsimulation tool and as such should not to be used for real world navigation. 
-The author(s) will not be held responsible for any violations occured using this tool.</p><p>If you wish to contribute to the project, visit <a href="https://github.com/DraggeBagge/Saab340APerformanceCalculator" target="_blank">our Github page</a></p>.</footer>
+    
+        -->
+        <table id="result" style="display: none">
+            <tr>
+                <th colspan="2">Results</th>
+            </tr>
+            <tr>
+                <td>Pressure altitude:</td>
+                <td id="presAlt">Not calculated</td>
+            </tr>
+            <tr>
+                <td>V1:</td>
+                <td id="v1">Not calculated</td>
+            </tr>
+            <tr>
+                <td>Vr:</td>
+                <td id="vr">Not calculated</td>
+            </tr>
+            <tr>
+                <td>V2:</td>
+                <td id="v2">Not calculated</td>
+            </tr>
+            <tr>
+                <td>Vclean:</td>
+                <td id="vClean">Not calculated</td>
+            </tr>
+            <tr>
+                <td>Vflap:</td>
+                <td id="vFlap">Not calculated</td>
+            </tr>
+        </table>
+        <footer><p>DISCLAMER: This is a flight simulation tool and as such should not to be used for real world navigation. 
+The author(s) will not be held responsible for any violations occured using this tool.</p><p>If you wish to contribute to the project, visit <a href="https://github.com/DraggeBagge/Saab340APerformanceCalculator" target="_blank">our Github page</a></p><p>For support, contact <a href="mailto:drago@flightsimsweden.se">drago@flightsimsweden.se</a></p>.</footer>
    
     <script src="app.js"></script>
 </body>
