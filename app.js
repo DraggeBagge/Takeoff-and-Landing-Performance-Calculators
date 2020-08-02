@@ -386,6 +386,9 @@ function reset () {
     runwaySlopeRef.value = null;
     windHeadingRef.value = null;
     windSpeedRef.value = null;
+    flapRef[0].checked = true;
+    ecsRef[0].checked = true;
+    aiRef[0].checked = true;
 }
 
 function getSpeeds(pa, weight, temp, setArr){
