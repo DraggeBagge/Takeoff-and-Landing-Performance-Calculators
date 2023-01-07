@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Saab340a Performance Calculator</title>
+    <link rel="stylesheet" href=".\style.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+</head>
+
+<body>
+       <div id="topMenu"><a href="https://dreamsimcreations.com/">Take me back to DreamSim Creations</a></div>
+        <table id="centerTable">
+            <tr id="tableHeading">
+                <th colspan="3">SAAB340a Takeoff performance calculator</th>
+            </tr>
+            <tr>
+                <td>Takeoff weight</td>
+                <td>
+                    <input type="number" id="grossWeight" placeholder="between 19000-30000"><p>LBS</p></td>
+            </tr>
+            <tr>
+                <td>Temperature</td>
+                <td>
+                    <input type="number" id="temperature" placeholder="eg. 15"><p>Celcius</p></td>
+            </tr>
+            <tr>
+                <td>Field pressure (MSL)</td>
+                <td>
+                    <input type="number" id="pressure" placeholder="eg. 29.92"><p>inHg</p></td>
+            </tr>
+            <tr>
+                <td>Field elevation (MSL)</td>
+                <td>
+                    <input type="number" id="fieldElevation" placeholder="eg. 145"><p>ft</p></td>
+            </tr>
+            <tr>
+                <td>Runway heading</td>
+                <td>
+                    <input type="number" id="rwHeading" placeholder="eg. 140"><p>Degrees</p></td>
+            </tr>
+            <tr>
+            <tr>
+                <td>Runway slope</td>
+                <td>
+                    <input type="number" id="rwSlope" placeholder="eg. 0.5"><p>Percent</p></td>
+                </td>
+            </tr>
+                <td>Wind</td>
+                <td>
+                    <input type="text" id="windDegrees" placeholder="eg. 360"><p>Degrees</p></td>
+                <td>
+                    <input type="text" id="windSpeed" placeholder="eg. 14"><p>Kts</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Flap Setting</td>
+                <td>
+                    <input type="radio" name="flaps" value="No flaps" checked>No flaps
+                    <input type="radio" name="flaps" value="15 Degree">15 degrees
+                </td>
+            </tr>
+            <tr>
+                <td>ECS Setting</td>
+                <td>
+                    <input type="radio" name="ecs" value="Off" checked>Off
+                    <input type="radio" name="ecs" value="On">On
+                </td>
+            </tr>
+            <tr>
+                <td>Engine Anti-Ice</td>
+                <td>
+                    <input type="radio" name="ai" value="Off" checked>Off
+                    <input type="radio" name="ai" value="On">On
+                </td>
+            </tr>
+        </table>
+        <div class="center"><button class="" id="calculate">Calculate</button>
+        <button class=""id="reset">Reset</button></div>
+        <!--
+        Use this section if the table does not work out    
+            <div id="result" style="display: none">
+            <p id="badInput"></p>
+            <p id="badConf"></p>
+            <p>Pressure altitude is: </p><p id="presAlt">Not calculated</p>
+            <p>V1 value: </p><p id="v1">Not calculated</p>
+            <p>Vr: </p><p id="vr">Not calculated</p>
+            <p>V2: </p><p id="v2">Not calculated</p>
+            <p>Vclean: </p><p id="vClean">Not calculated</p>
+            <p>Vflap: </p><p id="vFlap"></p>
+        </div>
+    
+        -->
+        <table id="result" style="display: none">
+            <tr>
+                <th colspan="2">Results</th>
+            </tr>
+            <tr>
+                <td>Pressure altitude:</td>
+                <td id="presAlt">Not calculated</td>
+            </tr>
+            <tr>
+                <td>V1:</td>
+                <td id="v1">Not calculated</td>
+            </tr>
+            <tr>
+                <td>Vr:</td>
+                <td id="vr">Not calculated</td>
+            </tr>
+            <tr>
+                <td>V2:</td>
+                <td id="v2">Not calculated</td>
+            </tr>
+            <tr>
+                <td>Vclean:</td>
+                <td id="vClean">Not calculated</td>
+            </tr>
+            <tr>
+                <td>Vflap:</td>
+                <td id="vFlap">Not calculated</td>
+            </tr>
+        </table>
+        <footer><p>DISCLAMER: This is a flight simulation tool and as such should not to be used for real world navigation. 
+The author(s) will not be held responsible for any violations occured using this tool.</p><p>If you wish to contribute to the project, visit <a href="https://github.com/DraggeBagge/Saab340APerformanceCalculator" target="_blank">our Github page</a></p><p>For support, contact <a href="mailto:drago@flightsimsweden.se">drago@flightsimsweden.se</a></p>.</footer>
+   
+    <script src="js/js_sf340.js"></script>
+</body>
+
+</html>
