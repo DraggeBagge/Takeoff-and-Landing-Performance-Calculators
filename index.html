@@ -1,73 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="js/w3.js"></script>
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Takeoff and Landing Performance Calculators (TLPC)</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Takeoff and Landing Performance Calculators (TLPC)</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
+
 <body>
-    <!-- Begin sidebar -->
-    <div class="flex-shrink-0 p-3" style="width: 280px;">
-        <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
-          <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-          <span class="fs-5 fw-semibold">TLPC v.0.2.0-alpha</span>
-        </a>
-        <ul class="list-unstyled ps-0">
-          <li class="mb-1">
-            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-              Home
-            </button>
-            <div class="collapse show" id="home-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Overview</a></li>
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Updates</a></li>
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Reports</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="mb-1">
-            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-              Dashboard
-            </button>
-            <div class="collapse" id="dashboard-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Overview</a></li>
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Weekly</a></li>
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Monthly</a></li>
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Annually</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="mb-1">
-            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-              Orders
-            </button>
-            <div class="collapse" id="orders-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New</a></li>
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Processed</a></li>
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Shipped</a></li>
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Returned</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="border-top my-3"></li>
-          <li class="mb-1">
-            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-              Account
-            </button>
-            <div class="collapse" id="account-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New...</a></li>
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Settings</a></li>
-                <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Sign out</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-    </div><!-- End sidebar -->
-    <script src="js/bootstrap.bundle.min.js"></script></body>
-</html> 
+
+  <div w3-include-html="html/sidebarMenu.html"></div>
+
+  <footer class="fixed-bottom text-light text-center text-lg-start">
+    <p class="text-center p-3">DISCLAMER: This is a flight simulation tool and as such should not to be used for real world navigation.
+      The author(s) will not be held responsible for any violations occured using this tool.<br><br>To report a bug please file an issue on our <a href="https://github.com/DraggeBagge/Saab340APerformanceCalculator/issues" target="_blank">Github page</a><br>For support, contact <a href="mailto:drago@flightsimsweden.se">drago@flightsimsweden.se</a><br><br> If you wish to contribute to the project, visit <a
+      href="https://github.com/DraggeBagge/Saab340APerformanceCalculator" target="_blank">TLPC Github page</a></p>
+  </footer>
+
+  <!-- Neccessery modules -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script>w3.includeHTML();</script>
+
+  <!-- Own neccessery modules -->
+
+  <!-- Aircraft specific scripts -->
+  <script src="js/js_sf340.js"></script>
+</body>
+
+</html>

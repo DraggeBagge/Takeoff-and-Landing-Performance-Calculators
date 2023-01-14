@@ -14,6 +14,21 @@ main {
   overflow-x: auto;
   overflow-y: hidden;
 }
+footer{
+  margin:0;
+  padding:2em;
+  background-color: #283A4A;
+}
+
+footer a{
+  color: #d2f4ea;
+}
+
+/* Sidebar specific */
+.sidebar{
+  min-height: 100vh; /* extends sidebar fully*/
+  background-color: #283A4A;
+}
 
 .dropdown-toggle { outline: 0; }
 
