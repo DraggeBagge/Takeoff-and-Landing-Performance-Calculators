@@ -11,18 +11,30 @@
 </head>
 
 <body>
+    <div class="row">
+      <div class="col-sm-4" w3-include-html="html/sidebarMenu.html"></div>
+      <div class="col-sm-8 well-lg">
+        <div class="calcContainer">
+          <div class="p-4" w3-include-html="calcModels/sf340.html"></div>
+        </div>
+      </div>
+    </div> <!-- Sidebar end -->
 
-  <div w3-include-html="html/sidebarMenu.html"></div>
-
-  <footer class="fixed-bottom text-light text-center text-lg-start">
-    <p class="text-center p-3">DISCLAMER: This is a flight simulation tool and as such should not to be used for real world navigation.
-      The author(s) will not be held responsible for any violations occured using this tool.<br><br>To report a bug please file an issue on our <a href="https://github.com/DraggeBagge/Saab340APerformanceCalculator/issues" target="_blank">Github page</a><br>For support, contact <a href="mailto:drago@flightsimsweden.se">drago@flightsimsweden.se</a><br><br> If you wish to contribute to the project, visit <a
-      href="https://github.com/DraggeBagge/Saab340APerformanceCalculator" target="_blank">TLPC Github page</a></p>
-  </footer>
-
+    <footer class="fixed-bottom text-light text-center text-lg-start">
+      <p class="text-center p-3">DISCLAMER: This is a flight simulation tool and as such should not to be used for real
+        world navigation.
+        The author(s) will not be held responsible for any violations occured using this tool.<br><br>To report a bug
+        please file an issue on our <a href="https://github.com/DraggeBagge/Saab340APerformanceCalculator/issues"
+          target="_blank">Github page</a><br>For support, contact <a
+          href="mailto:drago@flightsimsweden.se">drago@flightsimsweden.se</a><br><br> If you wish to contribute to the
+        project, visit <a href="https://github.com/DraggeBagge/Saab340APerformanceCalculator" target="_blank">TLPC
+          Github
+          page</a></p>
+    </footer> <!-- Footer end-->
   <!-- Neccessery modules -->
   <script src="js/bootstrap.bundle.min.js"></script>
   <script>w3.includeHTML();</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
   <!-- Own neccessery modules -->
 

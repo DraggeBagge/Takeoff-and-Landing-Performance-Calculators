@@ -16,7 +16,6 @@ main {
 }
 footer{
   margin:0;
-  padding:2em;
   background-color: #283A4A;
 }
 
@@ -27,11 +26,11 @@ footer a{
 /* Sidebar specific */
 .sidebar{
   min-height: 100vh; /* extends sidebar fully*/
-  background-color: #283A4A;
+  
 }
-
-.dropdown-toggle { outline: 0; }
-
+.dropdown-toggle { 
+  outline: 0; 
+}
 .btn-toggle {
   padding: .25rem .5rem;
   font-weight: 600;
