@@ -264,10 +264,18 @@ here beginns the weight array*/[/*weight 19000*/[/*-40*/[/*v1*/,/*v2*/,/*v3*/],/
 
 
 
-
+let initCounter = 0;
 function init () {
+   
+    if(document.getElementById("calculate") == null && initCounter < 3){
+        setTimeout(init(), 2000);
+       // console.log(initCounter);
+       initCounter += 1;
+    }
+    initCounter = 0;
+
+
    resultDiv = document.getElementById("result");
-   console.log(document.getElementById("calculate"));
    calcButton = document.getElementById("calculate");
    resetButton = document.getElementById("reset");
    calcButton.addEventListener('click', calc);
