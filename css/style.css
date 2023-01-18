@@ -15,12 +15,23 @@ main {
   overflow-y: hidden;
 }
 footer{
-  margin:0;
   background-color: #283A4A;
+  height:20%;
+}
+footer p{
+  
 }
 
 footer a{
   color: #d2f4ea;
+}
+
+.calcContainer{
+  height: 70%;
+}
+
+.footerContent{
+
 }
 
 /* Sidebar specific */
