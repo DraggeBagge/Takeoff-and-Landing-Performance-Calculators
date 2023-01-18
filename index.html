@@ -15,7 +15,7 @@
     <div class="col-md-4" w3-include-html="html/sidebarMenu.html"></div>
     <div class="col-md-8 well-lg">
       <div class="calcContainer">
-        <div class="p-4" w3-include-html="calcModels/sf340.html"></div>
+        <div class="p-4" w3-include-html="calcModels/sf340.html" onload="setTimeout(init(), 10000)"></div> <!-- TimeOut needed in order for all HTML to load before script -->
       </div>
     </div>
   </div> <!-- Sidebar end -->
@@ -35,7 +35,7 @@
   <!-- Neccessery modules -->
   <script src="js/bootstrap.bundle.min.js"></script>
   <script>w3.includeHTML();</script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="js/jquery.min.js"></script> <!-- v3.6.1-->
 
   <!-- Own neccessery modules -->
 
