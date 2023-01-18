@@ -266,8 +266,8 @@ here beginns the weight array*/[/*weight 19000*/[/*-40*/[/*v1*/,/*v2*/,/*v3*/],/
 
 
 function init () {
-   resultDiv = document.getElementById("result");
    console.log(document.getElementById("calculate"));
+   resultDiv = document.getElementById("result");
    calcButton = document.getElementById("calculate");
    resetButton = document.getElementById("reset");
    calcButton.addEventListener('click', calc);
