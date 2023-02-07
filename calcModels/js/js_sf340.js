@@ -263,21 +263,18 @@ here beginns the weight array*/[/*weight 19000*/[/*-40*/[/*v1*/,/*v2*/,/*v3*/],/
 ,/*weight 30000*/[/*-40*/[114,114,115],/*-30*/[114,114,115], /*-20*/[114,114,115],/*-10*/[114,115,115],/*0*/[115,115,115],/*10*/[115,115,115],/*20*/[115,115,115],/*30*/[115,115,115],/*40*/[115,115,115],/*50*/[115,115,115],129,132]]];
 
 
-
-let initCounter = 0;
 function init () {
-   
-    if(document.getElementById("calculate") == null && initCounter < 3){
-        setTimeout(init(), 2000);
-       // console.log(initCounter);
-       initCounter += 1;
-    }
-    initCounter = 0;
-
-
    resultDiv = document.getElementById("result");
    calcButton = document.getElementById("calculate");
    resetButton = document.getElementById("reset");
+   //To account for latency
+   if (calcButton == null){
+     setTimeout(function(){
+        init();
+     }, 2000);
+     return;
+   }
+
    calcButton.addEventListener('click', calc);
    resetButton.addEventListener('click', reset);
    dispInputErr = document.getElementById('badInput');
@@ -303,6 +300,17 @@ function init () {
 }
 
 window.addEventListener('load', init);
+
+window.addEventListener('load', init);
+
+/* let calcFrame = document.getElementById("calcFrame");
+calcFrame.onload = function(){
+    let subframeWindow = calcFrame.contenWindow;
+    subframeWindow.onload = function (){
+        init();
+    }
+} */
+
 
 function calc () {
 
